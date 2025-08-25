@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Decode Monitor Number</title>
+  <style>
+    body { margin: 20px; background: #fff; color: #000; }
+    h1 { margin-bottom: 10px; }
+    input { width: 250px; margin-top: 5px; }
+    .result { margin-top: 20px; font-weight: bold; }
+    .button { margin-top: 10px; }
+  </style>
+</head>
+<body>
+  <h1>Decode Monitor Number</h1>
+
+  <label>
+    Enter monitor code:
+    <input type="number" id="codeInput" placeholder="e.g., 2410801443">
+  </label>
+
+  <div class="button">
+    <button onclick="decodeCode()">Decode</button>
+  </div>
+
+  <div class="result" id="decodedResult">Meaning: —</div>
+
+  <script>
+    function decodeCode() {
+      const code = parseInt(document.getElementById('codeInput').value);
+      if(isNaN(code)) {
+        document.getElementById('decodedResult').textContent = "Meaning: Invalid code";
+        return;
+      }
+
+      const S = Math.floor(code / 1e8);
+      const R = Math.floor(code / 1e4) % 10000;
+      const H = Math.floor(code / 10) % 1000;
+      const P = code % 10;
+
+      const panelMap = {1:"TN", 2:"VA", 3:"IPS", 4:"OLED"};
+
+      document.getElementById('decodedResult').textContent =
+        `Meaning: Size: ${S}", Resolution: ${R}p, Refresh: ${H}Hz, Panel: ${panelMap[P] || P}`;
+    }
+  </script>
+</body>
+</html>

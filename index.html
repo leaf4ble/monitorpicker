@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Monitor Picker Formula</title>
+  <style>
+    body { margin: 20px; background: #fff; color: #000; }
+    h1 { margin-bottom: 10px; }
+    label { display: block; margin-top: 10px; }
+    select { margin-top: 3px; width: 250px; }
+    .result { margin-top: 20px; font-weight: bold; }
+    .button { margin-top: 20px; }
+  </style>
+</head>
+<body>
+  <h1>Monitor Picker</h1>
+
+  <label>
+    Size:
+    <select id="size">
+      <option value="24">Pro Gaming / Budget Gaming</option>
+      <option value="27" selected>Universal (Amazing)</option>
+      <option value="32">AAA Gaming ($$$)</option>
+    </select>
+  </label>
+
+  <label>
+    Resolution:
+    <select id="resolution">
+      <option value="1080" selected>Basic Gaming</option>
+      <option value="1440">High Quality Mid-End AAA Gaming</option>
+      <option value="2160">High-End Gaming ($$$)</option>
+    </select>
+  </label>
+
+  <label>
+    Refresh Rate:
+    <select id="hz">
+      <option value="060">Basic games and internet browsing / work</option>
+      <option value="120">Lightweight Gaming</option>
+      <option value="144" selected>Budget Mid-End Gaming</option>
+      <option value="240">High-End Gaming</option>
+      <option value="360">Pro-tier Gaming ($$$)</option>
+    </select>
+  </label>
+
+  <label>
+    Panel:
+    <select id="panel">
+      <option value="1">Insane latency, Bad colors, Terrible angles</option>
+      <option value="2">Okay latency, Good colors, Good angles</option>
+      <option value="3" selected>Great latency, Decent colors, Incredible angles</option>
+      <option value="4">Insane latency, Insane colors, Insane angles ($$$$)</option>
+    </select>
+  </label>
+
+  <div class="result" id="result">Code: —</div>
+
+  <div class="button">
+    <button onclick="goToDecoder()">Decode a number →</button>
+  </div>
+
+  <script>
+    function calculateCode() {
+      const S = parseInt(document.getElementById('size').value);
+      const R = parseInt(document.getElementById('resolution').value);
+      const H = parseInt(document.getElementById('hz').value);
+      const P = parseInt(document.getElementById('panel').value);
+
+      const code = S * 1e8 + R * 1e4 + H * 10 + P;
+      document.getElementById('result').textContent = "Code: " + code;
+    }
+
+    function goToDecoder() {
+      window.location.href = "decodenumber.html"; // redirect to decoder page
+    }
+
+    document.querySelectorAll("select").forEach(sel => {
+      sel.addEventListener("change", calculateCode);
+    });
+
+    calculateCode();
+  </script>
+</body>
+</html>
